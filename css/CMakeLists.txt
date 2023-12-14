@@ -104,4 +104,8 @@ source_group(grammar FILES ${grammar_src})
 source_group(properties FILES ${properties_src})
 
 add_library(css ${css_src} ${grammar_src} ${properties_src} ${misc})
+target_compile_options(css
+        PRIVATE
+        $<$<CXX_COMPILER_ID:MSVC>:/bigobj>
+        $<$<CXX_COMPILER_ID:GNU>:-Wa,-mbig-obj>)
 target_link_libraries(css PUBLIC core boost)
